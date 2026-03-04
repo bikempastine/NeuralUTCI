@@ -29,10 +29,10 @@ class UTCI_NN_Emulator(nn.Module):
 
 # ── Load once at import time ───────────────────────────────────────────────────
 _model = UTCI_NN_Emulator()
-_model.load_state_dict(torch.load('utci_nn_weights.pth', weights_only=True))
+_model.load_state_dict(torch.load('assets/utci_nn_weights.pth', weights_only=True))
 _model.eval()
 
-_scaler = joblib.load('scaler.pkl')
+_scaler = joblib.load('assets/scaler.pkl')
 
 # ── Valid input bounds, from training data ────────────────────────────────────
 _BOUNDS = {
@@ -43,7 +43,6 @@ _BOUNDS = {
 }
 
 # ── Main prediction function ─────────────────────────────────────────────────
-
 def NN_UTCI(
     Ta: Union[float, np.ndarray, pd.Series],
     Tr: Union[float, np.ndarray, pd.Series],
@@ -84,51 +83,55 @@ def NN_UTCI(
     Tr    = np.asarray(Tr,    dtype=np.float32)
     va    = np.asarray(va,    dtype=np.float32)
     rH    = np.asarray(rH,    dtype=np.float32)
+    
+    # ── Keep track if inputs were scalars to return scalar output ──────────────
     scalar_input = Ta.ndim == 0
     Ta, Tr, va, rH = (np.atleast_1d(a) for a in (Ta, Tr, va, rH))
 
-    Tr_Ta = Tr - Ta  # MRT offset
-
-    # ── Check that all inputs have the same length and issue warning ─────────────
+    # ── Check that all inputs have the same length and issue warning ────────────
     shapes = {len(np.atleast_1d(a)) for a in (Ta, Tr, va, rH)}
     if len(shapes) > 1:
         raise ValueError(f"All inputs must have the same length, got shapes: {shapes}")
 
 
-    # ── Build feature matrix and scale ────────────────────────────────────────
-    X = pd.DataFrame({"Ta": Ta, "Tr-Ta": Tr_Ta, "va": va, "rH": rH})
-    X_scaled = _scaler.transform(X)
 
-    # ── Run inference ──────────────────────────────────────────────────────────
-    utci = np.full(len(Ta), np.nan)  # pre-fill with NaN
+    # ── Run inference ───────────────────────────────────────────────────────────
+    utci = np.full(len(Ta), np.nan)
 
     if oob == "nan":
-        # Filter out oob inputs before calculation
         oob_mask = (
-            (Ta    < _BOUNDS["Ta"][0])    | (Ta    > _BOUNDS["Ta"][1])
-            | (Tr_Ta < _BOUNDS["Tr_Ta"][0]) | (Tr_Ta > _BOUNDS["Tr_Ta"][1])
-            | (va    < _BOUNDS["va"][0])    | (va    > _BOUNDS["va"][1])
-            | (rH    < _BOUNDS["rH"][0])    | (rH    > _BOUNDS["rH"][1])
+            (Ta < _BOUNDS["Ta"][0]) | (Ta > _BOUNDS["Ta"][1])
+            | (Tr < _BOUNDS["Tr"][0]) | (Tr > _BOUNDS["Tr"][1])
+            | (va < _BOUNDS["va"][0]) | (va > _BOUNDS["va"][1])
+            | (rH < _BOUNDS["rH"][0]) | (rH > _BOUNDS["rH"][1])
         )
         valid_mask = ~oob_mask
-        if valid_mask.any():
-            X_tensor = torch.tensor(X_scaled[valid_mask], dtype=torch.float32)
-            with torch.no_grad():
-                predictions = _model(X_tensor).squeeze().numpy()
-            utci[valid_mask] = predictions + Ta[valid_mask]
-
-    elif oob == "clamp":
-        # Clamp to the bounds of UTCI before inferance
-        Ta    = np.clip(Ta,    *_BOUNDS["Ta"])
-        Tr_Ta = np.clip(Tr_Ta, *_BOUNDS["Tr_Ta"])
-        va    = np.clip(va,    *_BOUNDS["va"])
-        rH    = np.clip(rH,   *_BOUNDS["rH"])
-
+        
+        if not valid_mask.any():
+            return utci[0] if scalar_input else utci  # early return, all NaN
+        
+        Tr_Ta = Tr - Ta
+        X = pd.DataFrame({"Ta": Ta[valid_mask], "Tr-Ta": Tr_Ta[valid_mask], "va": va[valid_mask], "rH": rH[valid_mask]})
+        X_scaled = _scaler.transform(X)
         X_tensor = torch.tensor(X_scaled, dtype=torch.float32)
+
         with torch.no_grad():
             predictions = _model(X_tensor).squeeze().numpy()
-        utci = predictions + Ta
+        utci[valid_mask] = predictions + Ta[valid_mask]  # only write valid rows
+
+    elif oob == "clamp":
+        Ta = np.clip(Ta, *_BOUNDS["Ta"])
+        Tr = np.clip(Tr, *_BOUNDS["Tr"])
+        va = np.clip(va, *_BOUNDS["va"])
+        rH = np.clip(rH, *_BOUNDS["rH"])
+
+        Tr_Ta = Tr - Ta
+        X = pd.DataFrame({"Ta": Ta, "Tr-Ta": Tr_Ta, "va": va, "rH": rH})
+        X_scaled = _scaler.transform(X)
+        X_tensor = torch.tensor(X_scaled, dtype=torch.float32)
+
+        with torch.no_grad():
+            predictions = _model(X_tensor).squeeze().numpy()
+        utci[:] = predictions + Ta  # all rows are valid after clamping
 
     return utci[0] if scalar_input else utci
-
-
