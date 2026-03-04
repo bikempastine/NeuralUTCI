@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "NN_UTCI"
+version = "0.1.0"
+description = "UTCI neural network approximator by Pastine et al."
+requires-python = ">=3.8"
+dependencies = [
+    "torch",
+    "scikit-learn",
+    "numpy",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+NN_UTCI = ["assets/*"]
