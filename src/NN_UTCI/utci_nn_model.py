@@ -27,12 +27,14 @@ class UTCI_NN_Emulator(nn.Module):
         return self.model(x)
 
 
-# ── Load once at import time ───────────────────────────────────────────────────
+# ── Load assets at import time ───────────────────────────────────────────────────
+_ASSETS_DIR = Path(__file__).parent / "assets"
 _model = UTCI_NN_Emulator()
-_model.load_state_dict(torch.load('assets/utci_nn_weights.pth', weights_only=True))
+_model.load_state_dict(torch.load(_ASSETS_DIR / "utci_nn_weights.pth", weights_only=True))
 _model.eval()
 
-_scaler = joblib.load('assets/scaler.pkl')
+_scaler = joblib.load(_ASSETS_DIR / "scaler.pkl")
+
 
 # ── Valid input bounds, from training data ────────────────────────────────────
 _BOUNDS = {
