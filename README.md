@@ -14,7 +14,7 @@ pip install git+https://github.com/bikempastine/utci-nn.git
 ```python
 from utci_nn import calculate_utci
 
-result = NN_UTCI(Ta=20, Tr=25, va=1.0, rH=50)
+result = calculate_utci(Ta=20, Tr=25, va=1.0, rH=50)
 ```
 
 ### Parameters
