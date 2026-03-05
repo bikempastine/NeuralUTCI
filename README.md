@@ -27,15 +27,24 @@ result = NN_UTCI(Ta=20, Tr=25, va=1.0, rH=50)
 | `rH` | Relative humidity | % | 5 to 100 |
 
 ### Out-of-bounds handling
+
+The NN is trained on the same input domain as the polynomial approximation in Bröde et al. (2012).
+Inputs outside this domain are handled with the `oob` parameter:
+
+- `oob="nan"` *(default)* — any row with one or more out-of-bounds inputs returns `NaN`
+- `oob="clamp"` — inputs are clamped to the valid range before prediction, matching the behaviour described in Bröde et al. (2012)
 ```python
-# Returns NaN for out-of-bounds values (default)
+# Returns NaN for out-of-bounds inputs (default)
 result = NN_UTCI(Ta=20, Tr=25, va=1.0, rH=50, oob="nan")
 
-# Clamps inputs to valid range
+# Clamps out-of-bounds inputs to valid range before predicting
 result = NN_UTCI(Ta=20, Tr=25, va=1.0, rH=50, oob="clamp")
 ```
 
 ## Reference
 
-Pastine et al. ...
-Bröde et al. (2012). Int. J. Biometeorology, 56(3), 481-494.
+Pastine et al. ... (https://www.overleaf.com/project/6914bd3d6902c37b5585f6b3)
+
+Bröde, P., Fiala, D., Bla˙zejczyk, K. et al. Deriving the operational procedure
+    for the Universal Thermal Climate Index (UTCI). Int. J. Biometeorol. 56, 481–494
+    (2012).
