@@ -10,7 +10,7 @@ requires-python = ">=3.8"
 authors = [
     {name = "Bikem Pastine", email = "bikem.pastine@hertford.ox.ac.uk"}
 ]
-license = {text = "MIT"}
+license = {text = "CC0-1.0"}
 dependencies = [
     "torch",
     "scikit-learn",
