@@ -43,7 +43,7 @@ result = utci(Ta=20, Tr=25, va=1.0, rH=50, oob="clamp")
 
 ## Reference
 
-Pastine et al. ... (https://www.overleaf.com/project/6914bd3d6902c37b5585f6b3)
+Pastine, B., Klöwer, M., Tang, T., Wilson Kemsley, S., and Slater, L.: An upgraded neural network-based operational procedure for the Universal Thermal Climate Index (UTCI) , EGU General Assembly 2026, Vienna, Austria, 3–8 May 2026, EGU26-5838, https://doi.org/10.5194/egusphere-egu26-5838, 2026.
 
 Bröde, P., Fiala, D., Bla˙zejczyk, K. et al. Deriving the operational procedure
     for the Universal Thermal Climate Index (UTCI). Int. J. Biometeorol. 56, 481–494
