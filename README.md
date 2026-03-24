@@ -48,3 +48,8 @@ Pastine, B., Klöwer, M., Tang, T., Wilson Kemsley, S., and Slater, L.: An upgra
 Bröde, P., Fiala, D., Bla˙zejczyk, K. et al. Deriving the operational procedure
     for the Universal Thermal Climate Index (UTCI). Int. J. Biometeorol. 56, 481–494
     (2012).
+
+
+## Cite this package as
+
+Pastine, B., Klöwer, M., Tang, T., Wilson Kemsley, S., & Slater, L. (2026). NeuralUTCI (Version 0.0.2) [Computer software]. https://doi.org/10.5281/zenodo.19204911
