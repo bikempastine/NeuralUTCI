@@ -50,6 +50,6 @@ Bröde, P., Fiala, D., Bla˙zejczyk, K. et al. Deriving the operational procedur
     (2012).
 
 
-## Cite this package as
+## Cite this Package
 
 Pastine, B., Klöwer, M., Tang, T., Wilson Kemsley, S., & Slater, L. (2026). NeuralUTCI (Version 0.0.2) [Computer software]. https://doi.org/10.5281/zenodo.19204911
