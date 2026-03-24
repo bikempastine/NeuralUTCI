@@ -1,0 +1,35 @@
+{
+  "standard_mean": [
+    8.48271358,
+    19.99134617
+  ],
+  "standard_scale": [
+    27.94072194,
+    30.27449298
+  ],
+  "minmax_min": [
+    0.5,
+    5.0
+  ],
+  "minmax_max": [
+    30.3,
+    100.0
+  ],
+  "columns": [
+    "Ta",
+    "Tr-Ta",
+    "va",
+    "rH"
+  ],
+  "transformers": {
+    "standard (StandardScaler)": [
+      "Ta",
+      "Tr-Ta"
+    ],
+    "minmax (MinMaxScaler)": [
+      "va",
+      "rH"
+    ]
+  },
+  "note": "Parameters extracted from scaler.pkl (sklearn 1.7.2 ColumnTransformer). Stored as plain JSON to avoid pickle dependency and ensure version stability."
+}
