@@ -1,8 +1,7 @@
-# NeuralUTCI 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19205376.svg)](https://doi.org/10.5281/zenodo.19205376)
+# NeuralUTCI
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19204911.svg)](https://doi.org/10.5281/zenodo.19204911)
 
 A neural network emulator for the Universal Thermal Climate Index (UTCI), as described in Pastine et al. (2026)
-
 
 Model is trained on 'Grid data' from Bröde et al (2012) and can be downloaded:
 https://link.springer.com/article/10.1007/s00484-011-0454-1
