@@ -1,14 +1,81 @@
-cff-version: 1.2.0
+cff-version: 0.0.2
+title: NeuralUTCI: A neural network-based operational procedure for the Universal Thermal Climate Index
 message: "If you use this software, please cite it as below."
+type: software
+
 authors:
-- family-names: "YOUR_NAME_HERE"
-  given-names: "YOUR_NAME_HERE"
-  orcid: "https://orcid.org/0000-0000-0000-0000"
-- family-names: "Lisa"
-  given-names: "Mona"
-  orcid: "https://orcid.org/0000-0000-0000-0000"
-title: "NeuralUTCI"
-version: 1.0.0
-doi: 10.5281/zenodo.1234
+  - family-names: Pastine
+    given-names: Bikem
+    orcid: https://orcid.org/0009-0007-0744-0366
+    affiliation: School of Geography and the Environment, University of Oxford, UK
+
+  - family-names: Klöwer
+    given-names: Milan
+    orcid: https://orcid.org/0000-0002-3920-4356
+    affiliation: Atmospheric, Oceanic and Planetary Physics, University of Oxford, UK
+
+  - family-names: Tang
+    given-names: Tianning
+    orcid: https://orcid.org/0000-0002-6365-9342
+    affiliation: University of Manchester, UK
+
+  - family-names: Wilson Kemsley
+    given-names: Sarah
+    orcid: https://orcid.org/0000-0002-7652-5060
+    affiliation: University of Oxford, UK
+
+  - family-names: Slater
+    given-names: Louise
+    orcid: https://orcid.org/0000-0001-9416-488X
+    affiliation: University of Oxford, UK
+
+version: 0.0.2
 date-released: 2026-03-24
-url: "https://github.com/bikempastine/NeuralUTCI"
+
+doi: 10.5281/zenodo.19204911
+
+repository-code: https://github.com/bikempastine/NeuralUTCI
+url: https://github.com/bikempastine/NeuralUTCI
+
+abstract: >
+  NeuralUTCI is a Python implementation of a neural network-based operational
+  procedure for the Universal Thermal Climate Index (UTCI). The model provides
+  a computationally efficient and significantly more accurate alternative to
+  the standard polynomial approximation, reducing approximation error and
+  improving thermal stress classification across a wide range of environmental
+  conditions.
+
+references:
+  - type: conference-abstract
+    authors:
+      - family-names: Pastine
+        given-names: Bikem
+        orcid: https://orcid.org/0009-0007-0744-0366
+
+      - family-names: Klöwer
+        given-names: Milan
+        orcid: https://orcid.org/0000-0002-3920-4356
+
+      - family-names: Tang
+        given-names: Tianning
+        orcid: https://orcid.org/0000-0002-6365-9342
+
+      - family-names: Wilson Kemsley
+        given-names: Sarah
+        orcid: https://orcid.org/0000-0002-7652-5060
+
+      - family-names: Slater
+        given-names: Louise
+        orcid: https://orcid.org/0000-0001-9416-488X
+
+    title: An upgraded neural network-based operational procedure for the Universal Thermal Climate Index (UTCI)
+    doi: 10.5194/egusphere-egu26-5838
+
+keywords:
+  - UTCI
+  - thermal comfort
+  - climate health
+  - neural networks
+  - biometeorology
+
+license: MIT
